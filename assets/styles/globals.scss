@@ -1,0 +1,25 @@
+
+
+body{
+  font-family: 'Montserrat', sans-serif;
+}
+
+h2{
+  @apply text-2xl font-bold mt-4
+}
+
+h3{
+  @apply text-xl font-bold
+}
+
+.default-layout{
+  @apply container px-48 mt-4 mx-auto xl:px-32 sm:px-12
+}
+
+.nuxt-link-active{
+  @apply font-bold
+}
+
+.cards-grid{
+  @apply grid gap-8
+}

@@ -1,5 +1,7 @@
 <template>
-$END$
+<div>
+  Я футер
+</div>
 </template>
 
 <script>
