@@ -28,7 +28,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '@/plugins/vue-awesome-swiper', mode: 'client' },
+    '@/plugins/vue-awesome-swiper',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -46,7 +46,8 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/strapi'
+    '@nuxtjs/strapi',
+    ['vue-scrollto/nuxt', { duration: 1000 }]
   ],
   strapi: {
     url: process.env.API_URL || "http://localhost:1337",

@@ -2,6 +2,7 @@
 
 body{
   font-family: 'Montserrat', sans-serif;
+  background: #fafafa;
 }
 
 h2{
@@ -9,11 +10,15 @@ h2{
 }
 
 h3{
-  @apply text-xl font-bold
+  @apply text-lg font-bold;
+
+  @screen md{
+    @apply text-xl;
+  }
 }
 
 .default-layout{
-  @apply container px-48 mt-4 mx-auto xl:px-32 sm:px-12
+  @apply container px-48 mt-4 mx-auto mt-44 sm:px-12 xl:px-32
 }
 
 .nuxt-link-active{

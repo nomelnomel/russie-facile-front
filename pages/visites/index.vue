@@ -1,23 +1,22 @@
 <template>
   <div v-if="towns" class="default-layout">
     <div v-for="town in towns" :key="town.id" class="mb-24">
-      <img :src="getStrapiMedia(town.excursionsContent.image.url)" alt="">
+      <img :src="getStrapiMedia(town.excursionsContent.image.url)" alt="" class="w-full">
       <nuxt-link :to="`visites/${town.slug}`"><h2>{{ town.name }}</h2></nuxt-link>
       <p class="mb-8">{{ town.excursionsContent.description }}</p>
       <div v-if="town.excursions.length !== 0">
-<!--        <p class="mb-8">лучшие экскурсии в {{ town.name }}:</p>-->
-        <div class="flex gap-4">
-          <nuxt-link
-            v-for="excursion in town.excursions"
+      <div class="cards-grid grid-cols-4">
+        <nuxt-link :to="`visites/${town.slug}`" class="flex items-center">
+          Посмотреть все экскурсии
+        </nuxt-link>
+          <PreviewCard
+            v-for="excursion in town.excursions.slice(0,3)"
             :key="excursion.id"
-            :to="`visites/${town.slug}/${excursion.slug}`"
-            class="border flex flex-col gap-3 shadow-md"
-          >
-            <img :src="getStrapiMedia(excursion.preview_image.url)" alt="">
-            <p class="ml-3 px-3">{{ excursion.title }}</p>
-            <button class="mt-auto">Подробнее -></button>
-          </nuxt-link>
-        </div>
+            :data="excursion"
+            section-slug="visites"
+            :town-slug="town.slug"
+          />
+      </div>
       </div>
       <div v-else>
         Для данного направления экскурсий нет
@@ -28,9 +27,13 @@
 
 <script>
 import {getStrapiMedia} from '~/utils/medias'
+import PreviewCard from '~/components/ui/PreviewCard'
 
 export default {
   name: 'Index',
+  components:{
+    PreviewCard
+  },
   data() {
     return {
       towns: null

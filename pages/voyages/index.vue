@@ -10,16 +10,23 @@
           <nuxt-link :to="`voyages/${town.slug}`" class="flex items-center">
             Посмотреть все туры
           </nuxt-link>
-          <nuxt-link
+<!--          <nuxt-link-->
+<!--            v-for="tour in town.tours.slice(0,3)"-->
+<!--            :key="tour.id"-->
+<!--            :to="`voyages/${town.slug}/${tour.slug}`"-->
+<!--            class="border flex flex-col gap-3 shadow-md"-->
+<!--          >-->
+<!--            <img :src="getStrapiMedia(tour.preview_image.url)" alt="">-->
+<!--            <p class="ml-3">{{ tour.title }}</p>-->
+<!--            <button class="mt-auto">Подробнее -></button>-->
+<!--          </nuxt-link>-->
+          <PreviewCard
             v-for="tour in town.tours.slice(0,3)"
             :key="tour.id"
-            :to="`voyages/${town.slug}/${tour.slug}`"
-            class="border flex flex-col gap-3 shadow-md"
-          >
-            <img :src="getStrapiMedia(tour.preview_image.url)" alt="">
-            <p class="ml-3">{{ tour.title }}</p>
-            <button class="mt-auto">Подробнее -></button>
-          </nuxt-link>
+            :data="tour"
+            section-slug="voyages"
+            :town-slug="town.slug"
+          />
         </div>
       </div>
       <div v-else>
@@ -31,9 +38,12 @@
 
 <script>
 import {getStrapiMedia} from '~/utils/medias'
-
+import PreviewCard from '~/components/ui/PreviewCard'
 export default {
   name: 'Index',
+  components: {
+    PreviewCard
+  },
   data() {
     return {
       towns: null

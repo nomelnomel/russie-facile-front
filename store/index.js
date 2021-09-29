@@ -1,9 +1,9 @@
 export const state = () => ({
-  sidebar: null
+  counter: 0
 })
 
 export const mutations = {
-  setSidebar(state, payload){
-    state.sidebar = payload
+  increment (state) {
+    state.counter++
   }
 }

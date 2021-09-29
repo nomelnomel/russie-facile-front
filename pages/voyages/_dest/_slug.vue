@@ -1,26 +1,28 @@
 <template>
-  <div v-if="tour" class="lg:w-3/4 md:w-full">
-    <h2>{{ tour.title }}</h2>
-    <div class="program-header flex gap-8">
-      <div>
-        <img src="" alt="">
-        {{ tour.daysCount }} jours
+  <div v-if="tour" class="lg:w-3/4 w-full mt-32">
+    <div class="pl-4">
+      <h2>{{ tour.title }}</h2>
+      <div class="program-header flex gap-8">
+        <div>
+          <img src="" alt="">
+          {{ tour.daysCount }} jours
+        </div>
+        <div>
+          <img src="" alt="">
+          {{ tour.townsCount }} ville{{ tour.townsCount > 1 ? 's' : '' }}
+        </div>
+        <div class="text-blue-600">
+          <a href="#">Ссылка на программу</a>
+        </div>
       </div>
-      <div>
-        <img src="" alt="">
-        {{ tour.townsCount }} ville{{ tour.townsCount > 1 ? 's' : '' }}
-      </div>
-      <div class="text-blue-600">
-        <a href="#">Ссылка на программу</a>
-      </div>
+      <div class="mt-8" v-html="tour.description"></div>
     </div>
-    <div class="mt-8" v-html="tour.description"></div>
 
-    <swiper ref="SwiperMain" :options="swiperOptionsMain" class="mt-8 shadow-2xl">
+    <swiper ref="swiperMain" :options="swiperOptionsMain" class="mt-8 shadow-2xl">
       <swiper-slide v-for="(day, i) in tour.days" :key="day.id">
-        <div class="flex border">
+        <div class="flex border flex-col lg:flex-row">
           <div class="flex-1">
-            <div class="flex items-center justify-center p-8 text-xl bg-green-600 text-white relative">
+            <div class="flex items-center justify-center p-8 text-xl bg-primary text-white relative">
               <div v-if="i > 0" slot="button-prev" class="prev absolute left-8 top-1/2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">
@@ -58,31 +60,25 @@
       </swiper-slide>
     </swiper>
 
-
-
-    <div class="flex mt-16">
-        <ul class="flex-1 flex flex-col items-center">
-          <h2>Включено</h2>
+    <div class="flex mt-16 flex-col pl-4 md:flex-row gap-16">
+        <ul class="flex-1 flex flex-col">
+          <h2 class="mb-2">Включено</h2>
           <li v-for="item in tour.included.yes.split('\n')" :key="item.id" class="flex mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg> {{item}}
+            <plus /> {{item}}
           </li>
         </ul>
-        <ul class="flex-1 justify-center items-center">
-          <h2>Не включено</h2>
+        <ul class="flex-1 justify-center md:items-center">
+          <h2 class="mb-2">Не включено</h2>
           <li v-for="item in tour.included.no.split('\n')" :key="item.id" class="flex mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>{{item}}
+            <minus />{{item}}
           </li>
         </ul>
     </div>
 
-    <div class="prices">
+    <div id="prices" class="prices">
       <div class="prices-line prices-header">
         <div class="prices-item">
-          Количество
+          Personnes
         </div>
         <div class="prices-item">
           У жителя
@@ -119,17 +115,15 @@
 </template>
 
 <script>
-import {directive, Swiper, SwiperSlide} from 'vue-awesome-swiper'
 import {getStrapiMedia} from '~/utils/medias'
+import plus from '~/components/svg-icons/plus'
+import minus from '~/components/svg-icons/minus'
 
 export default {
   name: 'VoyagesEndpoints',
   components: {
-    Swiper,
-    SwiperSlide,
-  },
-  directives: {
-    swiper: directive
+    plus,
+    minus
   },
   layout: 'w_sidebar',
   data() {
@@ -162,9 +156,10 @@ export default {
       const sidebar = {
         page: 'program',
         price_from: data[0].price_from,
-        price_to: data[0].price_to
+        price_to: data[0].price_to,
+        title: data[0].title
       }
-      this.$store.commit('setSidebar', sidebar)
+      this.$store.commit('sidebar/setSidebar', sidebar)
       this.tour = data[0]
     } catch (e) {
       console.log(e)
@@ -172,10 +167,10 @@ export default {
   },
   mounted() {
       this.$nextTick(() => {
-        const SwiperMain = this.$refs.SwiperMain.$swiper
+        const swiperMain = this.$refs.swiperMain.$swiper
         const swiperAdd = this.$refs.swiperAdd.$swiper
-        SwiperMain.controller.control = swiperAdd
-        swiperAdd.controller.control = SwiperMain
+        swiperMain.controller.control = swiperAdd
+        swiperAdd.controller.control = swiperMain
       })
   },
   methods: {
@@ -215,16 +210,31 @@ export default {
     @apply flex;
 
     &:nth-child(even){
-      @apply bg-gray-400;
+      @apply bg-green-50
     }
   }
 
   &-header{
-    @apply text-xl
+    @apply text-sm;
+
+    @screen md{
+     @apply text-xl;
+    }
   }
 
   &-item{
-    @apply flex-1 py-4 flex items-center justify-center flex-col font-bold;
+    @apply flex-1 py-4 flex items-center justify-center flex-col font-bold border border-black;
+
+    @screen md{
+      @apply text-xl
+    }
+
+    &:first-child{
+      max-width: 90px;
+      @screen md{
+        max-width: unset;
+      }
+    }
 
     span{
       @apply text-sm font-normal
