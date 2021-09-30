@@ -1,6 +1,9 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   target: 'static',
+  server: {
+    port: 5000
+  },
   head: {
     title: 'front',
     htmlAttrs: {

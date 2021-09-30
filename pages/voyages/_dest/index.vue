@@ -1,5 +1,5 @@
 <template>
-  <div v-if="town" class="default-layout">
+  <div v-if="town" class="w-full mt-20 px-4 lg:px-0 lg:w-3/4 lg:mt-32">
     <h2>раздел туров - страница направления</h2>
     {{ town.name }}
     <p v-if="town.toursContent"> {{ town.toursContent.description }} </p>
@@ -11,9 +11,11 @@
             <img :src="getStrapiMedia(tour.preview_image.url)" alt="" class="card__image">
             <div class="card__badge">de {{tour.price_from}} à {{tour.price_to}}€</div>
           </div>
-          <div class="p-4 flex flex-col">
-            <span>{{tour.title}}</span>
-            <span>{{tour.daysCount}} jours / {{tour.townsCount}} ville{{tour.townsCount > 1 ? 's' : ''}}</span>
+          <div class="p-4 flex flex-col h-full justify-between">
+            <div class="flex flex-col h-full gap-4">
+              <span>{{tour.title}}</span>
+              <span class="mt-auto">{{tour.daysCount}} jours / {{tour.townsCount}} ville{{tour.townsCount > 1 ? 's' : ''}}</span>
+            </div>
             <button class="cta">EN SAVOIR PLUS</button>
           </div>
         </nuxt-link>
@@ -44,7 +46,8 @@ export default {
       const data = await this.$strapi.find('towns', {slug: this.$route.params.dest})
       this.town = data[0]
       const sidebar = {...data[0], page: 'destination'}
-      this.$store.commit('setSidebar', sidebar)
+      console.log(data[0])
+      this.$store.commit('sidebar/setSidebar', sidebar)
       this.tours = await this.$strapi.$tours.find(item => this.item.towns.find(town => town.slug === this.$route.params.dest))
     }catch (e) {
       console.log(e)
@@ -59,7 +62,7 @@ export default {
 <style scoped lang="scss">
 
 .card{
-  @apply border shadow-md hover:shadow-lg rounded-md overflow-hidden;
+  @apply border shadow-md hover:shadow-lg rounded-md overflow-hidden flex flex-col h-full;
 
   &:hover{
     .cta{
@@ -75,10 +78,6 @@ export default {
     @apply absolute top-2 right-2 bg-blue-100 p-2
   }
 
-  .cta{
-    @apply p-2 mt-4;
-    background-color: #31aabb;
-  }
 }
 
 

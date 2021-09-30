@@ -2,7 +2,7 @@
   <div v-if="sidebar" class="sidebar">
     <div v-if="sidebar.page === 'program'" class="sidebar-program">
       <div class="flex items-center flex-col">
-        <h3 class="mb-2">Prix</h3>
+        <h3 class="mb-2 hidden lg:inline-block">Prix</h3>
         <div>
           de
           <span class="text-primary font-bold text-lg">{{ sidebar.price_from }}</span>
@@ -24,7 +24,9 @@
       </div>
     </div>
     <div v-if="sidebar.page === 'destination'">
-      я сайдбар направления
+      Смотрите также в
+      <div>{{sidebar.name}}</div>
+      <nuxt-link :to="`/visites/${sidebar.slug}`">Экскурсии</nuxt-link>
     </div>
     <RequestPopup :is-popup="isPopup" :title="sidebar.title" @close="isPopup = false"/>
 

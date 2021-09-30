@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header/>
-   <div class="relative content-w-sidebar-container mx-auto flex justify-between 2xl:px-44 md:px-4">
+   <div class="default-layout-w-sidebar">
      <Nuxt />
      <Sidebar/>
    </div>

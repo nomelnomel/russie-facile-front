@@ -18,7 +18,11 @@ h3{
 }
 
 .default-layout{
-  @apply container px-48 mt-4 mx-auto mt-44 sm:px-12 xl:px-32
+  @apply px-4 mt-20 w-full lg:px-24 lg:container mt-4 lg:mx-auto lg:mt-44 xl:px-32
+}
+
+.default-layout-w-sidebar{
+  @apply relative mx-auto flex justify-between 2xl:px-44 md:px-4;
 }
 
 .nuxt-link-active{
@@ -27,4 +31,14 @@ h3{
 
 .cards-grid{
   @apply grid gap-8
+}
+
+.svg-icon{
+  min-width: 24px;
+  width: 24px;
+}
+
+.cta{
+  @apply p-2 mt-4;
+  background-color: #31aabb;
 }

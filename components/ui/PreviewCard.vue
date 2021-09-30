@@ -4,8 +4,10 @@
       class="border flex flex-col gap-3 shadow-md"
     >
       <img :src="getStrapiMedia(data.preview_image.url)" alt="">
-      <p class="ml-3">{{ data.title }}</p>
-      <button class="mt-auto">Подробнее -></button>
+      <div class="flex flex-col pt-2 pb-4 justify-between h-full px-4">
+        <p>{{ data.title }}</p>
+        <button class="cta">Подробнее</button>
+      </div>
     </nuxt-link>
 </template>
 

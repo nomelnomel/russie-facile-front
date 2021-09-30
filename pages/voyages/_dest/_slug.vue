@@ -1,6 +1,6 @@
 <template>
-  <div v-if="tour" class="lg:w-3/4 w-full mt-32">
-    <div class="pl-4">
+  <div v-if="tour" class="w-full mt-20 px-4 lg:w-3/4 lg:mt-32">
+    <div>
       <h2>{{ tour.title }}</h2>
       <div class="program-header flex gap-8">
         <div>
@@ -60,14 +60,14 @@
       </swiper-slide>
     </swiper>
 
-    <div class="flex mt-16 flex-col pl-4 md:flex-row gap-16">
-        <ul class="flex-1 flex flex-col">
+    <div class="flex mt-16 flex-col pl-4 gap-4 md:flex-row md:gap-16">
+        <ul class="flex-1 flex flex-col pr-4">
           <h2 class="mb-2">Включено</h2>
           <li v-for="item in tour.included.yes.split('\n')" :key="item.id" class="flex mb-4">
             <plus /> {{item}}
           </li>
         </ul>
-        <ul class="flex-1 justify-center md:items-center">
+        <ul class="flex-1 justify-center pr-4 md:items-center">
           <h2 class="mb-2">Не включено</h2>
           <li v-for="item in tour.included.no.split('\n')" :key="item.id" class="flex mb-4">
             <minus />{{item}}
@@ -223,7 +223,7 @@ export default {
   }
 
   &-item{
-    @apply flex-1 py-4 flex items-center justify-center flex-col font-bold border border-black;
+    @apply flex-1 py-4 flex items-center text-center justify-center flex-col font-bold border border-black;
 
     @screen md{
       @apply text-xl

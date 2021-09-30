@@ -5,21 +5,10 @@
       <nuxt-link :to="`voyages/${town.slug}`"><h2>{{ town.name }}</h2></nuxt-link>
       <p class="mb-8">{{ town.toursContent.description }}</p>
       <div v-if="town.tours.length !== 0">
-<!--        <p class="mb-8">лучшие туры в {{ town.name }}:</p>-->
-        <div class="cards-grid grid-cols-4">
+        <div class="cards-grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
           <nuxt-link :to="`voyages/${town.slug}`" class="flex items-center">
             Посмотреть все туры
           </nuxt-link>
-<!--          <nuxt-link-->
-<!--            v-for="tour in town.tours.slice(0,3)"-->
-<!--            :key="tour.id"-->
-<!--            :to="`voyages/${town.slug}/${tour.slug}`"-->
-<!--            class="border flex flex-col gap-3 shadow-md"-->
-<!--          >-->
-<!--            <img :src="getStrapiMedia(tour.preview_image.url)" alt="">-->
-<!--            <p class="ml-3">{{ tour.title }}</p>-->
-<!--            <button class="mt-auto">Подробнее -></button>-->
-<!--          </nuxt-link>-->
           <PreviewCard
             v-for="tour in town.tours.slice(0,3)"
             :key="tour.id"
