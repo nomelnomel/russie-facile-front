@@ -6,6 +6,7 @@
     <div class="menu">
       <nuxt-link to="/voyages" class="group-hover:underline">Voyages</nuxt-link>
       <nuxt-link to="/visites">Visites</nuxt-link>
+      <nuxt-link to="/blog">Blog</nuxt-link>
       <nuxt-link to="/a-propos">à propos</nuxt-link>
       <nuxt-link to="/contacts">contacts</nuxt-link>
     </div>
@@ -22,6 +23,7 @@
         </span>
         <nuxt-link to="/voyages">Voyages</nuxt-link>
         <nuxt-link to="/visites">Visites</nuxt-link>
+        <nuxt-link to="/blog">Blog</nuxt-link>
         <nuxt-link to="/a-propos">à propos</nuxt-link>
         <nuxt-link to="/contacts">contacts</nuxt-link>
       </div>

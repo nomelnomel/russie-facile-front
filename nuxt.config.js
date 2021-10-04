@@ -57,7 +57,8 @@ export default {
     entities: [
       'towns',
       'tours',
-      'excursions'
+      'excursions',
+      'articles'
     ],
   },
 

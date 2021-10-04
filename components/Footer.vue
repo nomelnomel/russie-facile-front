@@ -4,6 +4,7 @@
   <div class="links flex flex-col gap-8 items-center">
     <nuxt-link to="/voyages">Voyages</nuxt-link>
     <nuxt-link to="/visites">Visites</nuxt-link>
+    <nuxt-link to="/blog">Blog</nuxt-link>
     <nuxt-link to="/a-propos">À Propos</nuxt-link>
     <nuxt-link to="/contacts">Contacts</nuxt-link>
   </div>
