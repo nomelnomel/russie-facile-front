@@ -21,9 +21,17 @@ export default {
     }
   },
   async fetch() {
-    // const number = 1
-    // const count = 1
-    this.articles = await this.$strapi.$articles.find({_start:0, _limit: 1})
+    this.$store.commit('setLoading', true)
+    try{
+      // const number = 1
+      // const count = 1
+      this.articles = await this.$strapi.$articles.find({_start:0, _limit: 1})
+    }catch (e) {
+      console.log(e)
+    }
+    finally {
+      this.$store.commit('setLoading', false)
+    }
   },
   methods: {
     getStrapiMedia

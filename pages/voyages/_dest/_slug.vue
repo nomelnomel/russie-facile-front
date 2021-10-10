@@ -1,31 +1,32 @@
 <template>
-  <div v-if="!loading" class="w-full mt-20 px-4 lg:w-3/4 lg:mt-32">
-    <div>
+  <div v-if="!loading" class="w-full mt-24 px-4 lg:w-2/3 lg:mt-32 lg:pr-0 xl:w-3/4 xl:pr-16 2xl:pr-0">
+    <div class="mb-4 pb-4 border-b border-dashed border-gray-300">
       <h2>{{ tour.title }}</h2>
-      <div class="program-header flex gap-8">
-        <div>
-          {{ tour.daysCount }} jours
+      <div class="program-header flex gap-4 md:gap-8">
+        <div class="flex items-center gap-1">
+          <calendar />{{ tour.daysCount }} jours
         </div>
-        <div>
-          {{ tour.townsCount }} ville{{ tour.townsCount > 1 ? 's' : '' }}
+        <div class="flex items-center gap-1">
+          <geo />{{ tour.townsCount }} ville{{ tour.townsCount > 1 ? 's' : '' }}
         </div>
-        <div class="text-blue-600">
+        <div v-if="false" class="text-blue-600">
           <a href="#">Ссылка на программу</a>
         </div>
       </div>
-      <div class="mt-8" v-html="tour.description"></div>
+      <div v-html="tour.description"></div>
     </div>
     <DaysSlider :days="tour.days"/>
-    <div class="flex mt-16 flex-col pl-4 gap-4 md:flex-row md:gap-16">
-        <ul class="flex-1 flex flex-col pr-4">
-          <h2 class="mb-2">Включено</h2>
-          <li v-for="item in tour.included.yes.split('\n')" :key="item.id" class="flex mb-4">
+
+    <div class="flex mt-4 md:mt-8 flex-col gap-4 md:flex-row md:gap-8 lg:gap-16">
+        <ul class="flex-1 flex flex-col pr-2">
+          <h2 class="mb-2 lg:mb-4">Inclus</h2>
+          <li v-for="item in tour.included.yes.split('\n')" :key="item.id" class="flex mb-2 md:mb-4">
             <plus /> {{item}}
           </li>
         </ul>
-        <ul class="flex-1 justify-center pr-4 md:items-center">
-          <h2 class="mb-2">Не включено</h2>
-          <li v-for="item in tour.included.no.split('\n')" :key="item.id" class="flex mb-4">
+        <ul class="flex-1 justify-center pr-2 md:items-center">
+          <h2 class="mb-2 lg:mb-4">Non inclus</h2>
+          <li v-for="item in tour.included.no.split('\n')" :key="item.id" class="flex mb-2 md:mb-4">
             <minus />{{item}}
           </li>
         </ul>
@@ -37,13 +38,13 @@
           Personnes
         </div>
         <div class="prices-item">
-          У жителя
+          Chez l’habitant
         </div>
         <div class="prices-item">
-          Отель 3*
+          Hôtel 3*
         </div>
         <div class="prices-item">
-          Отель 4*
+          Hôtel 4*
         </div>
       </div>
       <div v-for="price in tour.prices" :key="price.id" class="prices-line">
@@ -65,6 +66,7 @@
       </div>
     </div>
   </div>
+  <loading v-else/>
 </template>
 
 <script>
@@ -72,14 +74,20 @@ import {mapGetters} from 'vuex'
 import {getStrapiMedia} from '~/utils/medias'
 import plus from '~/components/svg-icons/plus'
 import minus from '~/components/svg-icons/minus'
+import geo from '~/components/svg-icons/geo'
+import calendar from '~/components/svg-icons/calendar'
 import DaysSlider from '~/components/ui/DaysSlider'
+import loading from '~/components/svg-icons/loading'
 
 export default {
   name: 'VoyagesEndpoints',
   components: {
     plus,
     minus,
-    DaysSlider
+    geo,
+    calendar,
+    DaysSlider,
+    loading
   },
   layout: 'w_sidebar',
   data() {
@@ -142,7 +150,11 @@ export default {
 
 
 .prices{
-  @apply flex flex-col mt-16;
+  @apply flex flex-col mt-4;
+
+  @screen md{
+    @apply mt-8
+  }
 
   &-line{
     @apply flex;

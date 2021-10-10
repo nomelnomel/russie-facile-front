@@ -1,57 +1,55 @@
 <template>
-<div v-if="days">
-  <div ref="swiperMain" v-swiper:swiperMain="swiperOptionsMain" class="mt-8 shadow-2xl">
-    <div class="swiper-wrapper">
-      <div v-for="(day, i) in days" :key="day.id" class="swiper-slide">
-        <div class="flex border flex-col lg:flex-row">
-          <div class="flex-1">
-            <div class="flex items-center justify-center p-8 text-xl bg-primary text-white relative">
-              <div v-if="i > 0" slot="button-prev" class="prev absolute left-8 top-1/2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"/>
-                </svg>
+  <div v-if="days">
+    <div ref="swiperMain" v-swiper:swiperMain="swiperOptionsMain" class="mt-8 shadow-2xl">
+      <div class="swiper-wrapper">
+        <div v-for="(day, i) in days" :key="day.id" class="swiper-slide">
+          <div class="flex border flex-col lg:flex-row">
+            <div class="flex-1">
+              <div class="slider-header">
+                <div slot="button-prev" class="prev absolute left-8 top-1/2">
+                  <leftArrow/>
+                </div>
+                <div>
+                  <span class="font-bold">Jour {{ i + 1 }}</span> à {{ days.length }}
+                </div>
+                <div slot="button-next" class="next absolute right-8 top-1/2">
+                  <rightArrow/>
+                </div>
               </div>
-              <div>
-                <span class="font-bold">Jour {{ i + 1 }}</span> à {{ days.length }}
-              </div>
-              <div v-if="i < days.length - 1" slot="button-next" class="next absolute right-8 top-1/2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-              </div>
-            </div>
-              <div ref="textBox" class="description px-4 py-2 mr-2 mt-2">
+              <div ref="textBox" class="description p-2 m-2">
                 {{ day.description }}
               </div>
-          </div>
-          <div class="flex-1 image">
-            <img :src="getStrapiMedia(day.image.url)" alt="" class="w-full object-cover">
+            </div>
+            <div class="flex-1 image">
+              <img :src="getStrapiMedia(day.image.url)" alt="" class="w-full object-cover">
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div ref="swiperAdd" v-swiper:swiperAdd="swiperOptionsAdd" class="swiper gallery-thumbs">
-    <div class="swiper-wrapper">
-      <div v-for="i in days.length" :key="i" class="slide-1 swiper-slide">
+    <div ref="swiperAdd" v-swiper:swiperAdd="swiperOptionsAdd" class="swiper gallery-thumbs">
+      <div class="swiper-wrapper">
+        <div v-for="i in days.length" :key="i" class="slide-1 swiper-slide">
         <span class="border border-black py-2 px-4 rounded-full cursor-pointer">
           {{ i }}
         </span>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
+import rightArrow from '~/components/svg-icons/rightArrow'
+import leftArrow from '~/components/svg-icons/leftArrow'
 import {getStrapiMedia} from '~/utils/medias'
 
 export default {
   name: 'DaysSlider',
+  components: {
+    rightArrow,
+    leftArrow
+  },
   props: {
     days: {
       type: Array,
@@ -63,7 +61,7 @@ export default {
       swiperOptionsMain: {
         loop: true,
         loopedSlides: 5,
-        spaceBetween: 10,
+        spaceBetween: 0,
         navigation: {
           nextEl: '.next',
           prevEl: '.prev',
@@ -72,7 +70,7 @@ export default {
       swiperOptionsAdd: {
         loop: true,
         loopedSlides: 5, // looped slides should be the same
-        spaceBetween: 10,
+        spaceBetween: 0,
         centeredSlides: true,
         slidesPerView: 'auto',
         touchRatio: 0.2,
@@ -81,16 +79,16 @@ export default {
     }
   },
   mounted() {
-      this.$nextTick(() => {
-        const swiperMain = this.swiperMain
-        const swiperAdd = this.swiperAdd
-        swiperMain.controller.control = swiperAdd
-        swiperAdd.controller.control = swiperMain
-      })
+    this.$nextTick(() => {
+      const swiperMain = this.swiperMain
+      const swiperAdd = this.swiperAdd
+      swiperMain.controller.control = swiperAdd
+      swiperAdd.controller.control = swiperMain
+    })
   },
   methods: {
     getStrapiMedia,
-  },
+  }
 }
 </script>
 
@@ -108,34 +106,61 @@ export default {
   align-items: center;
   justify-content: center;
   margin-top: 30px;
+  font-family: 'Ubuntu Mono', monospace;
 }
 
 .gallery-thumbs .swiper-slide-active {
   opacity: 1;
 }
 
-.description{
-  max-height: 240px;
-  min-height: 240px;
+.slider-header{
+  @apply flex items-center justify-center p-4 text-xl bg-primary text-white relative;
+
+  @screen md{
+    @apply p-8;
+  }
+}
+
+.description {
+  max-height: 150px;
+  min-height: 150px;
+  height: 150px;
+
+  @screen md {
+    max-height: 240px;
+    min-height: 240px;
+    height: 240px;
+  }
   overflow-y: auto;
-  &::-webkit-scrollbar{
+
+  &::-webkit-scrollbar {
     width: 8px;
   }
+
   &::-webkit-scrollbar-track {
     background-color: darkgrey;
   }
+
   &::-webkit-scrollbar-thumb {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   }
 }
 
 
-.image{
-  min-height: 367px;
-  max-height: 367px;
+.image {
+  min-height: 210px;
+  max-height: 210px;
+  height: 210px;
 
-  img{
+  @screen md {
+    min-height: 367px;
+    max-height: 367px;
+    height: 367px;
+  }
+
+  img {
     object-fit: cover;
+    object-position: center;
     width: 100%;
     height: 100%;
   }

@@ -56,6 +56,10 @@ export default {
     '@nuxtjs/strapi',
     ['vue-scrollto/nuxt', { duration: 1000 }],
     ['nuxt-lazy-load', {defaultImage: '/default-image.jpg',}],
+    '@nuxtjs/redirect-module'
+  ],
+  redirect: [
+    // { from: '/blog', to: '/blog/page/1' }
   ],
   strapi: {
     url: process.env.API_URL || "http://localhost:1337",

@@ -1,5 +1,5 @@
 <template>
-<div>о нас</div>
+<div class="default-layout">о нас</div>
 </template>
 
 <script>

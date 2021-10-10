@@ -34,6 +34,7 @@
     </div>
 
   </div>
+  <loading v-else/>
 </template>
 
 <script>
@@ -41,12 +42,14 @@ import {mapGetters} from 'vuex'
 import {getStrapiMedia} from '~/utils/medias'
 import PreviewCard from '~/components/ui/PreviewCard'
 import ButtonCircle from '~/components/ui/ButtonCircle'
+import loading from '~/components/svg-icons/loading'
 
 export default {
   name: 'Index',
   components: {
     PreviewCard,
-    ButtonCircle
+    ButtonCircle,
+    loading
   },
   data() {
     return {

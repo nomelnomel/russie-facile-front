@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div v-if="$store.state.loading" class="absolute z-50 loading flex justify-center items-center">
+    <div v-if="$store.state.loading" class="loading">
       <svg xmlns="http://www.w3.org/2000/svg" display="block" preserveAspectRatio="xMidYMid"
            style="background:#fafafa" viewBox="0 0 100 100" class="w-1/12">
         <rect width="5" height="11" x="47.5" y="24.5" fill="#31aabb" rx="2.5" ry="3.74">
@@ -69,10 +69,9 @@ export default {
 }
 
 .loading{
+  @apply flex justify-center items-center fixed z-50 top-0 left-0;
   background-color: #fafafa;
-  margin-top: -64px; /*TODO: WTF*/
   width: 100vw;
   height: 100vh;
-  margin-left: -24px;
 }
 </style>

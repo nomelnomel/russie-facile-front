@@ -5,15 +5,15 @@
     <h2 class="font-bold">Программы:</h2>
     <template v-if="town.tours.length !== 0">
       <div class="cards-grid xl:grid-cols-3 sm:grid-cols-2">
-        <nuxt-link v-for="tour in town.tours" :key="tour.id" :to="`${town.slug}/${tour.slug}`" class="card">
-          <div class="relative">
+        <nuxt-link v-for="tour in town.tours" :key="tour.id" :to="`${town.slug}/${tour.slug}`" class="card relative">
+          <div class="">
             <img :src="getStrapiMedia(tour.preview_image.url)" alt="" class="card__image">
-            <div class="card__badge">de {{tour.price_from}} à {{tour.price_to}}€</div>
+            <div class="card__badge font-bold">de {{tour.price_from}} à {{tour.price_to}}€</div>
           </div>
           <div class="p-4 flex flex-col h-full justify-between">
             <div class="flex flex-col h-full gap-4">
-              <span>{{tour.title}}</span>
-              <span class="mt-auto">{{tour.daysCount}} jours / {{tour.townsCount}} ville{{tour.townsCount > 1 ? 's' : ''}}</span>
+              <span class="font-bold">{{tour.title}}</span>
+              <span class="mt-auto absolute top-2 left-2 bg-green-200 p-2 font-bold">{{tour.daysCount}} jours</span>
             </div>
             <button class="cta">EN SAVOIR PLUS</button>
           </div>
@@ -44,8 +44,8 @@ export default {
     }
   },
   async fetch(){
+    await this.$store.dispatch('setLoading', true)
     try {
-      await this.$store.dispatch('setLoading', true)
       const data = await this.$strapi.find('towns', {slug: this.$route.params.dest})
       this.town = data[0]
       const sidebar = {...data[0], page: 'voyages'}
@@ -87,8 +87,4 @@ export default {
   }
 
 }
-
-
-
-
 </style>

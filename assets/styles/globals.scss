@@ -6,7 +6,7 @@ body{
 }
 
 h2{
-  @apply text-3xl font-bold mt-6 mb-4;
+  @apply text-3xl font-bold mt-4 mb-4;
 }
 
 h3{
@@ -18,11 +18,11 @@ h3{
 }
 
 .default-layout{
-  @apply px-4 mt-20 w-full lg:px-24 lg:container mt-4 lg:mx-auto lg:mt-44 xl:px-32
+  @apply w-full mx-auto mt-24 px-4 lg:container lg:mt-32
 }
 
 .default-layout-w-sidebar{
-  @apply relative mx-auto flex justify-between sm:px-2 md:px-4 lg:px-12 xl:px-24 2xl:px-44;
+  @apply relative mx-auto flex justify-between sm:px-2 md:px-4 lg:px-0 xl:px-16 2xl:px-44;
 }
 
 .nuxt-link-active{
@@ -39,6 +39,6 @@ h3{
 }
 
 .cta{
-  @apply p-2 mt-4;
+  @apply p-2 mt-4 text-white font-bold;
   background-color: #31aabb;
 }

@@ -1,4 +1,4 @@
-<template class="default-layout-w-sidebar">
+<template>
   <div v-if="!loading" class="w-full mt-20 px-4 lg:px-0 lg:w-3/4 lg:mt-32">
     <h2>Visites à {{ town.name }}</h2>
     <p v-if="town.excursionsContent"> {{ town.excursionsContent.description }} </p>
@@ -23,14 +23,20 @@
       Для данного направления экскурсий нет
     </div>
   </div>
+
+  <loading v-else/>
 </template>
 
 <script>
 import {mapGetters} from 'vuex'
 import {getStrapiMedia} from '~/utils/medias'
+import loading from '~/components/svg-icons/loading'
 
 export default {
   name: 'VoyagesEndpoints',
+  components: {
+    loading
+  },
   layout: 'w_sidebar',
   data() {
     return {
@@ -39,8 +45,8 @@ export default {
     }
   },
   async fetch(){
+    await this.$store.dispatch('setLoading', true)
     try {
-      await this.$store.dispatch('setLoading', true)
       const data = await this.$strapi.find('towns', {slug: this.$route.params.dest})
       this.town = data[0]
       const sidebar = {...data[0], page: 'visites'}
@@ -63,6 +69,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 .card{
   @apply border shadow-md hover:shadow-lg rounded-md overflow-hidden flex flex-col h-full;
 

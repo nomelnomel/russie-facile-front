@@ -2,8 +2,21 @@
   <div class="header" :class="{scrolled: isScrolled}">
       <logo/>
     <div class="menu">
-      <nuxt-link to="/voyages" class="group-hover:underline">Voyages</nuxt-link>
-      <nuxt-link to="/visites">Visites</nuxt-link>
+      <div class="relative" @mouseover="isVoyageMenu = true" @mouseleave="isVoyageMenu = false">
+        <nuxt-link to="/voyages">Voyages</nuxt-link>
+        <div v-if="isVoyageMenu" class="menu-hidden">
+          <nuxt-link to="/voyages/saint-petersbourg">Saint-Pétersbourg</nuxt-link>
+          <nuxt-link to="/voyages/moscou">Moscou</nuxt-link>
+          <nuxt-link to="/voyages/transsiberien">Transsibérien</nuxt-link>
+        </div>
+      </div>
+      <div class="relative" @mouseover="isVisitesMenu = true" @mouseleave="isVisitesMenu = false">
+        <nuxt-link to="/visites">Visites</nuxt-link>
+        <div v-if="isVisitesMenu" class="menu-hidden">
+          <nuxt-link to="/visites/saint-petersbourg">Saint-Pétersbourg</nuxt-link>
+          <nuxt-link to="/visites/moscou">Moscou</nuxt-link>
+        </div>
+      </div>
       <nuxt-link to="/blog">Blog</nuxt-link>
       <nuxt-link to="/a-propos">à propos</nuxt-link>
       <nuxt-link to="/contacts">contacts</nuxt-link>
@@ -44,7 +57,9 @@ export default {
   data() {
     return {
       isScrolled: false,
-      showDrawer: false
+      showDrawer: false,
+      isVoyageMenu: false,
+      isVisitesMenu: false
     }
   },
   mounted() {
@@ -71,7 +86,7 @@ export default {
 <style scoped lang="scss">
 
 .header {
-  @apply flex items-center fixed top-0 left-0 w-full z-10 bg-gray-200 shadow-xl justify-between px-4 py-2;
+  @apply flex items-center fixed top-0 left-0 w-full z-20 bg-gray-200 shadow-xl justify-between px-4 py-2;
 
   @screen md {
     @apply container left-1/2;
@@ -101,6 +116,25 @@ export default {
       //border: 1px solid black;
       &:hover {
         text-decoration: underline;
+      }
+    }
+
+    &-hidden{
+      width: 175px;
+      left: -5px;
+      @apply bg-white flex flex-col absolute border;
+
+
+      a{
+        font-size: 16px!important;
+        @apply p-2 border-b border-gray-500;
+        &:hover{
+          @apply bg-gray-300 no-underline;
+        }
+      }
+
+      a:last-child{
+        border: none;
       }
     }
   }
