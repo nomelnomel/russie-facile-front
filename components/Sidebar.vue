@@ -10,7 +10,7 @@
           <span class="text-primary font-bold text-lg">{{ sidebar.price_to }} €</span>
         </div>
         <span class="text-xs">par persone</span>
-        <button v-scroll-to="'#prices'" class="bg-primary py-2 px-4 rounded-sm text-white font-bold mt-2">Смотреть</button>
+        <button v-scroll-to="{el: '#prices', offset: -500}" class="bg-primary py-2 px-4 rounded-sm text-white font-bold mt-2">Смотреть</button>
       </div>
       <div class="flex-col hidden mb-2 lg:flex">
         <h3 class="text-center my-2 ">Плюшки</h3>
@@ -23,10 +23,15 @@
         <button class="bg-primary py-2 px-4 rounded-sm text-white font-bold" @click="isPopup = true">Commander</button>
       </div>
     </div>
-    <div v-if="sidebar.page === 'destination'">
-      Смотрите также в
-      <div>{{sidebar.name}}</div>
-      <nuxt-link :to="`/visites/${sidebar.slug}`">Экскурсии</nuxt-link>
+    <div v-if="sidebar.page === 'voyages'" class="text-center p-2">
+      Voir aussi à
+      <h3>{{sidebar.name}}</h3>
+      <nuxt-link :to="`/visites/${sidebar.slug}`" class="mt-8 py-8 px-4 border border-black flex items-center justify-center">Visites</nuxt-link>
+    </div>
+    <div v-if="sidebar.page === 'visites'">
+      Voir aussi à
+      <h3>{{sidebar.name}}</h3>
+      <nuxt-link :to="`/voyages/${sidebar.slug}`" class="mt-8 py-8 px-4 border border-black flex items-center justify-center">Voyages</nuxt-link>
     </div>
     <RequestPopup :is-popup="isPopup" :title="sidebar.title" @close="isPopup = false"/>
 

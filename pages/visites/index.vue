@@ -1,14 +1,24 @@
 <template>
-  <div v-if="towns" class="default-layout">
+  <div v-if="!loading" class="default-layout">
+
     <div v-for="town in towns" :key="town.id" class="mb-24">
+
       <img :src="getStrapiMedia(town.excursionsContent.image.url)" alt="" class="w-full">
-      <nuxt-link :to="`visites/${town.slug}`"><h2>{{ town.name }}</h2></nuxt-link>
-      <p class="mb-8">{{ town.excursionsContent.description }}</p>
+
+      <nuxt-link :to="`visites/${town.slug}`">
+        <h2>{{ town.name }}</h2>
+      </nuxt-link>
+
+      <p class="mb-8">
+        {{ town.excursionsContent.description }}
+      </p>
+
       <div v-if="town.excursions.length !== 0">
-      <div class="cards-grid grid-cols-4">
-        <nuxt-link :to="`visites/${town.slug}`" class="flex items-center">
-          Посмотреть все экскурсии
-        </nuxt-link>
+
+        <div class="cards-grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
+
+          <ButtonCircle :path="`visites/${town.slug}`">Voir tout les visits à<br>{{ town.name }}</ButtonCircle>
+
           <PreviewCard
             v-for="excursion in town.excursions.slice(0,3)"
             :key="excursion.id"
@@ -16,23 +26,27 @@
             section-slug="visites"
             :town-slug="town.slug"
           />
+
+        </div>
+
       </div>
-      </div>
-      <div v-else>
-        Для данного направления экскурсий нет
-      </div>
+
     </div>
+
   </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import {getStrapiMedia} from '~/utils/medias'
 import PreviewCard from '~/components/ui/PreviewCard'
+import ButtonCircle from '~/components/ui/ButtonCircle'
 
 export default {
   name: 'Index',
-  components:{
-    PreviewCard
+  components: {
+    PreviewCard,
+    ButtonCircle
   },
   data() {
     return {
@@ -40,7 +54,18 @@ export default {
     }
   },
   async fetch() {
-    this.towns = await this.$strapi.$towns.find({_sort: 'order'})
+    try {
+      await this.$store.dispatch('setLoading', true)
+      this.towns = await this.$strapi.$towns.find({_sort: 'order'})
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log(e)
+    } finally {
+      await this.$store.dispatch('setLoading', false)
+    }
+  },
+  computed: {
+    ...mapGetters(['loading'])
   },
   methods: {
     getStrapiMedia

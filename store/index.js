@@ -1,9 +1,25 @@
+
 export const state = () => ({
-  counter: 0
+  loading: false
 })
 
 export const mutations = {
   increment (state) {
     state.counter++
+  },
+  setLoading(state, payload){
+    state.loading = payload
+  }
+}
+
+export const actions = {
+  setLoading({commit}, payload) {
+    commit('setLoading', payload)
+  }
+}
+
+export const getters = {
+  loading(state){
+    return state.loading
   }
 }

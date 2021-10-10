@@ -6,7 +6,7 @@ body{
 }
 
 h2{
-  @apply text-2xl font-bold mt-4
+  @apply text-3xl font-bold mt-6 mb-4;
 }
 
 h3{
@@ -22,7 +22,7 @@ h3{
 }
 
 .default-layout-w-sidebar{
-  @apply relative mx-auto flex justify-between 2xl:px-44 md:px-4;
+  @apply relative mx-auto flex justify-between sm:px-2 md:px-4 lg:px-12 xl:px-24 2xl:px-44;
 }
 
 .nuxt-link-active{

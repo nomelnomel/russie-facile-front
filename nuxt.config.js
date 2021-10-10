@@ -21,9 +21,13 @@ export default {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;1,400&display=swap',
       },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap',
+      },
     ]
   },
-
+  loading: '@/components/svg-icons/loading',
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/styles/globals.scss',
@@ -50,7 +54,8 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/strapi',
-    ['vue-scrollto/nuxt', { duration: 1000 }]
+    ['vue-scrollto/nuxt', { duration: 1000 }],
+    ['nuxt-lazy-load', {defaultImage: '/default-image.jpg',}],
   ],
   strapi: {
     url: process.env.API_URL || "http://localhost:1337",

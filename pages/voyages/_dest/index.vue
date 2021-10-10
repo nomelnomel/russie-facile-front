@@ -1,7 +1,6 @@
 <template>
-  <div v-if="town" class="w-full mt-20 px-4 lg:px-0 lg:w-3/4 lg:mt-32">
-    <h2>раздел туров - страница направления</h2>
-    {{ town.name }}
+  <div v-if="!loading" class="w-full mt-20 px-4 lg:px-0 lg:w-3/4 lg:mt-32">
+    <h2>Voyages à {{ town.name }}</h2>
     <p v-if="town.toursContent"> {{ town.toursContent.description }} </p>
     <h2 class="font-bold">Программы:</h2>
     <template v-if="town.tours.length !== 0">
@@ -25,15 +24,18 @@
       Для данного направления програм нет
     </div>
   </div>
-  <div v-else>
-    грузим
-  </div>
+  <loading v-else/>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import {getStrapiMedia} from '~/utils/medias'
+import loading from '~/components/svg-icons/loading'
 export default {
   name: "VoyagesEndpoints",
+  components: {
+    loading
+  },
   layout: 'w_sidebar',
   data() {
     return {
@@ -43,19 +45,25 @@ export default {
   },
   async fetch(){
     try {
+      await this.$store.dispatch('setLoading', true)
       const data = await this.$strapi.find('towns', {slug: this.$route.params.dest})
       this.town = data[0]
-      const sidebar = {...data[0], page: 'destination'}
+      const sidebar = {...data[0], page: 'voyages'}
       console.log(data[0])
       this.$store.commit('sidebar/setSidebar', sidebar)
       this.tours = await this.$strapi.$tours.find(item => this.item.towns.find(town => town.slug === this.$route.params.dest))
     }catch (e) {
       console.log(e)
+    }finally {
+      await this.$store.dispatch('setLoading', false)
     }
+  },
+  computed: {
+    ...mapGetters(['loading'])
   },
   methods: {
     getStrapiMedia
-  }
+  },
 }
 </script>
 

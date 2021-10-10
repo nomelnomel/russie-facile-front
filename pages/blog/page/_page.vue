@@ -23,7 +23,7 @@ export default {
   name: 'Index',
   data() {
     return {
-      articles: null,
+      articles: [],
       start: 0
     }
   },

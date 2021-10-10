@@ -1,8 +1,6 @@
 <template>
   <div class="header" :class="{scrolled: isScrolled}">
-    <nuxt-link to="/" class="w-1/4 h-auto border border-black p-4">
-      Logo
-    </nuxt-link>
+      <logo/>
     <div class="menu">
       <nuxt-link to="/voyages" class="group-hover:underline">Voyages</nuxt-link>
       <nuxt-link to="/visites">Visites</nuxt-link>
@@ -34,12 +32,14 @@
 <script>
 import burger from '~/components/svg-icons/burger'
 import close from '~/components/svg-icons/close'
+import logo from '~/components/svg-icons/logo'
 
 export default {
   name: 'Header',
   components: {
     burger,
-    close
+    close,
+    logo
   },
   data() {
     return {
@@ -71,7 +71,7 @@ export default {
 <style scoped lang="scss">
 
 .header {
-  @apply flex items-center fixed top-0 left-0 w-full z-10 bg-gray-200 shadow-xl justify-between px-10;
+  @apply flex items-center fixed top-0 left-0 w-full z-10 bg-gray-200 shadow-xl justify-between px-4 py-2;
 
   @screen md {
     @apply container left-1/2;
@@ -79,7 +79,7 @@ export default {
   }
 
   @screen lg {
-    @apply mx-auto px-32 py-4 border;
+    @apply mx-auto px-12 py-4 border;
 
   }
 
@@ -87,7 +87,21 @@ export default {
     @apply hidden;
 
     @screen md {
-      @apply flex justify-evenly w-5/6 capitalize;
+      @apply flex justify-evenly w-2/3 capitalize;
+    }
+
+    @screen lg {
+      @apply w-5/6;
+    }
+
+    a {
+      cursor: pointer;
+      text-transform: capitalize;
+      font-size: 20px;
+      //border: 1px solid black;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -96,14 +110,7 @@ export default {
     background-color: #ccccccbd;
   }
 
-  a {
-    cursor: pointer;
-    text-transform: capitalize;
-    //border: 1px solid black;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
+
 }
 
 .scrolled {

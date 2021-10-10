@@ -1,14 +1,12 @@
 <template>
-  <div v-if="tour" class="w-full mt-20 px-4 lg:w-3/4 lg:mt-32">
+  <div v-if="!loading" class="w-full mt-20 px-4 lg:w-3/4 lg:mt-32">
     <div>
       <h2>{{ tour.title }}</h2>
       <div class="program-header flex gap-8">
         <div>
-          <img src="" alt="">
           {{ tour.daysCount }} jours
         </div>
         <div>
-          <img src="" alt="">
           {{ tour.townsCount }} ville{{ tour.townsCount > 1 ? 's' : '' }}
         </div>
         <div class="text-blue-600">
@@ -17,49 +15,7 @@
       </div>
       <div class="mt-8" v-html="tour.description"></div>
     </div>
-
-    <swiper ref="swiperMain" :options="swiperOptionsMain" class="mt-8 shadow-2xl">
-      <swiper-slide v-for="(day, i) in tour.days" :key="day.id">
-        <div class="flex border flex-col lg:flex-row">
-          <div class="flex-1">
-            <div class="flex items-center justify-center p-8 text-xl bg-primary text-white relative">
-              <div v-if="i > 0" slot="button-prev" class="prev absolute left-8 top-1/2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"/>
-                </svg>
-              </div>
-              <div>
-                <span class="font-bold">Jour {{ i + 1 }}</span> à {{ tour.days.length }}
-              </div>
-              <div v-if="i < tour.days.length - 1" slot="button-next" class="next absolute right-8 top-1/2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-              </div>
-            </div>
-            <div class="p-8">
-              <div>{{ day.title }}</div>
-              <div>{{ day.description }}</div>
-            </div>
-          </div>
-          <div class="flex-1">
-            <img :src="getStrapiMedia(day.image.url)" alt="" class="w-full object-cover">
-          </div>
-        </div>
-      </swiper-slide>
-    </swiper>
-    <swiper ref="swiperAdd" class="swiper gallery-thumbs" :options="swiperOptionsAdd">
-      <swiper-slide v-for="i in tour.days.length" :key="i" class="slide-1">
-        <span class="border border-black py-2 px-4 rounded-full cursor-pointer">
-          {{ i }}
-        </span>
-      </swiper-slide>
-    </swiper>
-
+    <DaysSlider :days="tour.days"/>
     <div class="flex mt-16 flex-col pl-4 gap-4 md:flex-row md:gap-16">
         <ul class="flex-1 flex flex-col pr-4">
           <h2 class="mb-2">Включено</h2>
@@ -109,21 +65,21 @@
       </div>
     </div>
   </div>
-  <div v-else>
-    грузим
-  </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import {getStrapiMedia} from '~/utils/medias'
 import plus from '~/components/svg-icons/plus'
 import minus from '~/components/svg-icons/minus'
+import DaysSlider from '~/components/ui/DaysSlider'
 
 export default {
   name: 'VoyagesEndpoints',
   components: {
     plus,
-    minus
+    minus,
+    DaysSlider
   },
   layout: 'w_sidebar',
   data() {
@@ -152,6 +108,7 @@ export default {
   },
   async fetch() {
     try {
+      await this.$store.dispatch('setLoading', true)
       const data = await (this.$strapi.find('tours', {slug: this.$route.params.slug}))
       const sidebar = {
         page: 'program',
@@ -163,16 +120,14 @@ export default {
       this.tour = data[0]
     } catch (e) {
       console.log(e)
+    } finally {
+      await this.$store.dispatch('setLoading', false)
     }
   },
-  mounted() {
-      this.$nextTick(() => {
-        const swiperMain = this.$refs.swiperMain.$swiper
-        const swiperAdd = this.$refs.swiperAdd.$swiper
-        swiperMain.controller.control = swiperAdd
-        swiperAdd.controller.control = swiperMain
-      })
+  computed: {
+    ...mapGetters(['loading'])
   },
+
   methods: {
     getStrapiMedia
   }
@@ -184,24 +139,7 @@ export default {
 .tour-container {
 }
 
-.prev, .next {
-  transform: translateY(-50%);
-}
 
-.gallery-thumbs .swiper-slide {
-  width: 20%;
-  height: 60px;
-  opacity: 0.4;
-  padding: 0 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 30px;
-}
-
-.gallery-thumbs .swiper-slide-active {
-  opacity: 1;
-}
 
 .prices{
   @apply flex flex-col mt-16;
