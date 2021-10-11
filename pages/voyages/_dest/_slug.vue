@@ -2,7 +2,7 @@
   <div v-if="!loading" class="w-full mt-24 px-4 lg:w-2/3 lg:mt-32 lg:pr-0 xl:w-3/4 xl:pr-16 2xl:pr-0">
     <div class="mb-4 pb-4 border-b border-dashed border-gray-300">
       <h2>{{ tour.title }}</h2>
-      <div class="program-header flex gap-4 md:gap-8">
+      <div class="program-header flex gap-4 mb-3 md:gap-8">
         <div class="flex items-center gap-1">
           <calendar />{{ tour.daysCount }} jours
         </div>

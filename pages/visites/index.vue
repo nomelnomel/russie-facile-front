@@ -15,7 +15,7 @@
 
       <div v-if="town.excursions.length !== 0">
 
-        <div class="cards-grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
+        <div class="cards__grid">
 
           <ButtonCircle :path="`visites/${town.slug}`">Voir tout les visits à<br>{{ town.name }}</ButtonCircle>
 

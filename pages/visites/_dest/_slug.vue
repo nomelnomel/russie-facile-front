@@ -71,7 +71,7 @@ export default {
       const data = await this.$strapi.find('excursions', {slug: this.$route.params.slug})
       const sidebar = {
         page: 'excursion',
-        price: data[0].price_form,
+        price_from: data[0].price_from,
         title: data[0].title
       }
       this.$store.commit('sidebar/setSidebar', sidebar)

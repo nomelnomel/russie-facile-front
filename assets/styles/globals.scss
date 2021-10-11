@@ -29,10 +29,6 @@ h3{
   @apply font-bold
 }
 
-.cards-grid{
-  @apply grid gap-8
-}
-
 .svg-icon{
   min-width: 24px;
   width: 24px;
@@ -41,4 +37,51 @@ h3{
 .cta{
   @apply p-2 mt-4 text-white font-bold;
   background-color: #31aabb;
+}
+
+.cards__grid{
+  @apply grid gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-4;
+
+  &_withsidebar{
+   @apply md:grid-cols-2 2xl:grid-cols-3
+  }
+}
+
+.card {
+  @apply border shadow-md hover:shadow-lg rounded-md overflow-hidden flex flex-col h-full relative;
+
+  &:hover {
+    .cta {
+      background-color: #14cfe9;
+    }
+  }
+
+  &__image {
+    @apply object-cover w-full xl:max-h-52 sm:max-h-48;
+    max-width: unset;
+  }
+
+  &__badge {
+    @apply absolute top-2 p-2;
+
+    &_right {
+      @apply right-2 bg-blue-100
+    }
+
+    &_left {
+      @apply left-2 bg-green-100
+    }
+
+    span {
+      @apply font-bold;
+    }
+  }
+
+  &__bottom {
+    @apply p-4 flex flex-col h-full justify-between;
+
+    h3 {
+      @apply font-bold flex flex-col h-full gap-4;
+    }
+  }
 }

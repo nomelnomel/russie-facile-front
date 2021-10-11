@@ -1,22 +1,15 @@
 <template>
-  <div v-if="!loading" class="w-full mt-20 px-4 lg:px-0 lg:w-3/4 lg:mt-32">
+  <div v-if="!loading" class="w-full mt-24 px-4 lg:w-2/3 lg:mt-32 lg:pr-0 xl:w-3/4 xl:pr-16 2xl:pr-0">
     <h2>Visites à {{ town.name }}</h2>
     <p v-if="town.excursionsContent"> {{ town.excursionsContent.description }} </p>
-    <h2 class="font-bold">Экскурсии:</h2>
     <template v-if="town.excursions.length !== 0">
-      <div class="cards-grid xl:grid-cols-3 sm:grid-cols-2">
-        <nuxt-link v-for="excursion in town.excursions" :key="excursion.id" :to="`${town.slug}/${excursion.slug}`" class="card">
-          <div class="relative">
-            <img :src="getStrapiMedia(excursion.preview_image.url)" alt="" class="card__image">
-            <div class="card__badge">de {{excursion.price_from}} à {{excursion.price_to}}€</div>
-          </div>
-          <div class="p-4 flex flex-col h-full justify-between">
-            <div class="flex flex-col h-full gap-4">
-              <span>{{excursion.title}}</span>
-            </div>
-            <button class="cta">EN SAVOIR PLUS</button>
-          </div>
-        </nuxt-link>
+      <div class="cards__grid cards__grid_withsidebar">
+        <PreviewCard
+          v-for="excursion in town.excursions"
+          :key="excursion.id"
+          :data="excursion"
+          :town-slug="town.slug"
+        />
       </div>
     </template>
     <div v-else>
@@ -31,11 +24,13 @@
 import {mapGetters} from 'vuex'
 import {getStrapiMedia} from '~/utils/medias'
 import loading from '~/components/svg-icons/loading'
+import PreviewCard from '~/components/ui/PreviewCard'
 
 export default {
   name: 'VoyagesEndpoints',
   components: {
-    loading
+    loading,
+    PreviewCard
   },
   layout: 'w_sidebar',
   data() {

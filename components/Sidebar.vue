@@ -64,7 +64,7 @@
         <p class="mb-2 hidden lg:inline-block font-bold text-2xl">Tarifs</p>
         <div>
           de
-          <span class="price">{{ sidebar.price }} €</span>
+          <span class="price">{{ sidebar.price_from }} €</span>
         </div>
         <span class="text-xs hidden lg:block">par persone</span>
         <button v-scroll-to="{el: '#prices', offset: -200}"

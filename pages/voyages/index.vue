@@ -15,7 +15,7 @@
 
       <div v-if="town.tours.length !== 0">
 
-        <div class="cards-grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
+        <div class="cards__grid">
 
           <ButtonCircle :path="`voyages/${town.slug}`">Voir tout les voyages à {{ town.name }}</ButtonCircle>
 
@@ -25,7 +25,11 @@
             :data="tour"
             section-slug="voyages"
             :town-slug="town.slug"
-          />
+          >
+            <template #card-info>
+              <div class="card__badge card__badge_left">{{tour.daysCount}} jours</div>
+            </template>
+          </PreviewCard>
 
         </div>
 
