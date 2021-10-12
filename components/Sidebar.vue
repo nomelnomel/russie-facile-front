@@ -40,7 +40,7 @@
           <span>Voyage 100% personnalisable</span></div>
       </div>
       <div class="flex justify-center gap-2 lg:border-t lg:mt-4 lg:pt-4 lg:w-full">
-        <button class="bg-primary py-2 px-4 rounded-sm text-white font-bold lg:py-4 lg:px-8 lg:text-xl"
+        <button class="bg-bg-accent py-2 px-4 rounded-sm text-white font-bold lg:py-4 lg:px-8 lg:text-xl"
                 @click="isPopup = true">Commander
         </button>
       </div>
@@ -97,7 +97,7 @@
           <span>Prix justes</span></div>
       </div>
       <div class="flex justify-center gap-2 lg:border-t lg:mt-4 lg:pt-4 lg:w-full">
-        <button class="bg-primary py-2 px-4 rounded-sm text-white font-bold lg:py-4 lg:px-8 lg:text-xl"
+        <button class="bg-accent py-2 px-4 rounded-sm text-white font-bold lg:py-4 lg:px-8 lg:text-xl"
                 @click="isPopup = true">Commander
         </button>
       </div>
@@ -158,7 +158,7 @@ export default {
       }
 
       .price {
-        @apply text-primary font-bold text-lg;
+        @apply text-accent font-bold text-lg;
 
         @screen lg {
           @apply text-3xl
@@ -179,7 +179,7 @@ export default {
     @apply underline;
 
     @screen lg {
-      @apply bg-primary py-2 px-4 rounded-sm text-white font-bold mt-2 no-underline;
+      @apply bg-accent py-2 px-4 rounded-sm text-white font-bold mt-2 no-underline;
     }
   }
 }

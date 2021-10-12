@@ -8,7 +8,7 @@
     <nuxt-link to="/a-propos">À Propos</nuxt-link>
     <nuxt-link to="/contacts">Contacts</nuxt-link>
   </div>
-  <div class="socials border-t border-primary mt-4 pt-4 flex items-center gap-8">
+  <div class="socials border-t border-accent mt-4 pt-4 flex items-center gap-8">
     <a href="#">IG</a>
     <a href="#">FB</a>
   </div>

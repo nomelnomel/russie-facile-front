@@ -13,9 +13,6 @@ export const mutations = {
 }
 
 export const actions = {
-  setLoading({commit}, payload) {
-    commit('setLoading', payload)
-  }
 }
 
 export const getters = {

@@ -1,7 +1,7 @@
 <template>
   <div v-if="isPopup" class="popup fixed top-0 left-0 w-full h-full flex items-center justify-center"
        @click="$emit('close')">
-    <form action="" class="p-4 rounded-2xl flex flex-col shadow-2xl bg-primary" @click.stop>
+    <form action="" class="p-4 rounded-2xl flex flex-col shadow-2xl bg-accent" @click.stop>
       <label>
         <p> Votre Nom</p>
         <input type="text" placeholder="Votre Nom">

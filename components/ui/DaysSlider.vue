@@ -114,7 +114,7 @@ export default {
 }
 
 .slider-header{
-  @apply flex items-center justify-center p-4 text-xl bg-primary text-white relative;
+  @apply flex items-center justify-center p-4 text-xl bg-accent text-white relative;
 
   @screen md{
     @apply p-8;

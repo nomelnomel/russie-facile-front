@@ -4,10 +4,12 @@
       <h2>{{ tour.title }}</h2>
       <div class="program-header flex gap-4 mb-3 md:gap-8">
         <div class="flex items-center gap-1">
-          <calendar />{{ tour.daysCount }} jours
+          <calendar/>
+          {{ tour.daysCount }} jours
         </div>
         <div class="flex items-center gap-1">
-          <geo />{{ tour.townsCount }} ville{{ tour.townsCount > 1 ? 's' : '' }}
+          <geo/>
+          {{ tour.townsCount }} ville{{ tour.townsCount > 1 ? 's' : '' }}
         </div>
         <div v-if="false" class="text-blue-600">
           <a href="#">Ссылка на программу</a>
@@ -18,18 +20,20 @@
     <DaysSlider :days="tour.days"/>
 
     <div class="flex mt-4 md:mt-8 flex-col gap-4 md:flex-row md:gap-8 lg:gap-16">
-        <ul class="flex-1 flex flex-col pr-2">
-          <h2 class="mb-2 lg:mb-4">Inclus</h2>
-          <li v-for="item in tour.included.yes.split('\n')" :key="item.id" class="flex mb-2 md:mb-4">
-            <plus /> {{item}}
-          </li>
-        </ul>
-        <ul class="flex-1 justify-center pr-2 md:items-center">
-          <h2 class="mb-2 lg:mb-4">Non inclus</h2>
-          <li v-for="item in tour.included.no.split('\n')" :key="item.id" class="flex mb-2 md:mb-4">
-            <minus />{{item}}
-          </li>
-        </ul>
+      <ul class="flex-1 flex flex-col pr-2">
+        <h2 class="mb-2 lg:mb-4">Inclus</h2>
+        <li v-for="item in tour.included.yes.split('\n')" :key="item.id" class="flex mb-2 md:mb-4">
+          <plus/>
+          {{ item }}
+        </li>
+      </ul>
+      <ul class="flex-1 justify-center pr-2 md:items-center">
+        <h2 class="mb-2 lg:mb-4">Non inclus</h2>
+        <li v-for="item in tour.included.no.split('\n')" :key="item.id" class="flex mb-2 md:mb-4">
+          <minus/>
+          {{ item }}
+        </li>
+      </ul>
     </div>
 
     <div id="prices" class="prices">
@@ -49,18 +53,18 @@
       </div>
       <div v-for="price in tour.prices" :key="price.id" class="prices-line">
         <div class="prices-item">
-          {{price.number}}
+          {{ price.number }}
         </div>
         <div class="prices-item">
-          {{price.inh}}€
+          {{ price.inh }}€
           <span>par persone</span>
         </div>
         <div class="prices-item">
-          {{price.hot3}}€
+          {{ price.hot3 }}€
           <span>par persone</span>
         </div>
         <div class="prices-item">
-          {{price.hot4}}€
+          {{ price.hot4 }}€
           <span>par persone</span>
         </div>
       </div>
@@ -93,31 +97,15 @@ export default {
   data() {
     return {
       tour: null,
-      swiperOptionsMain: {
-        loop: true,
-        loopedSlides: 5,
-        spaceBetween: 10,
-        navigation: {
-          nextEl: '.next',
-          prevEl: '.prev',
-        }
-        // Some Swiper option/callback...
-      },
-      swiperOptionsAdd: {
-        loop: true,
-        loopedSlides: 5, // looped slides should be the same
-        spaceBetween: 10,
-        centeredSlides: true,
-        slidesPerView: 'auto',
-        touchRatio: 0.2,
-        slideToClickedSlide: true
-      }
     }
   },
   async fetch() {
     try {
-      await this.$store.dispatch('setLoading', true)
+      this.$store.commit('setLoading', true)
+
       const data = await (this.$strapi.find('tours', {slug: this.$route.params.slug}))
+      this.tour = data[0]
+
       const sidebar = {
         page: 'program',
         price_from: data[0].price_from,
@@ -125,11 +113,10 @@ export default {
         title: data[0].title
       }
       this.$store.commit('sidebar/setSidebar', sidebar)
-      this.tour = data[0]
     } catch (e) {
       console.log(e)
     } finally {
-      await this.$store.dispatch('setLoading', false)
+      this.$store.commit('setLoading', false)
     }
   },
   computed: {
@@ -148,45 +135,44 @@ export default {
 }
 
 
-
-.prices{
+.prices {
   @apply flex flex-col mt-4;
 
-  @screen md{
+  @screen md {
     @apply mt-8
   }
 
-  &-line{
+  &-line {
     @apply flex;
 
-    &:nth-child(even){
+    &:nth-child(even) {
       @apply bg-green-50
     }
   }
 
-  &-header{
+  &-header {
     @apply text-sm;
 
-    @screen md{
-     @apply text-xl;
+    @screen md {
+      @apply text-xl;
     }
   }
 
-  &-item{
+  &-item {
     @apply flex-1 py-4 flex items-center text-center justify-center flex-col font-bold border border-black;
 
-    @screen md{
+    @screen md {
       @apply text-xl
     }
 
-    &:first-child{
+    &:first-child {
       max-width: 90px;
-      @screen md{
+      @screen md {
         max-width: unset;
       }
     }
 
-    span{
+    span {
       @apply text-sm font-normal
     }
   }

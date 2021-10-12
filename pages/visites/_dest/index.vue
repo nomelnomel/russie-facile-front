@@ -36,22 +36,22 @@ export default {
   data() {
     return {
       town: null,
-      excursions: null
     }
   },
-  async fetch(){
-    await this.$store.dispatch('setLoading', true)
+  async fetch() {
     try {
+      this.$store.commit('setLoading', true)
+
       const data = await this.$strapi.find('towns', {slug: this.$route.params.dest})
       this.town = data[0]
+      // console.log(data[0])
+
       const sidebar = {...data[0], page: 'visites'}
-      console.log(data[0])
       this.$store.commit('sidebar/setSidebar', sidebar)
-      this.excursions = await this.$strapi.$excursions.find(item => this.item.towns.find(town => town.slug === this.$route.params.dest))
-    }catch (e) {
+    } catch (e) {
       console.log(e)
-    }finally {
-      await this.$store.dispatch('setLoading', false)
+    } finally {
+      this.$store.commit('setLoading', false)
     }
   },
   computed: {
@@ -65,20 +65,21 @@ export default {
 
 <style scoped lang="scss">
 
-.card{
+.card {
   @apply border shadow-md hover:shadow-lg rounded-md overflow-hidden flex flex-col h-full;
 
-  &:hover{
-    .cta{
+  &:hover {
+    .cta {
       background-color: #14cfe9;
     }
   }
-  &__image{
+
+  &__image {
     @apply object-cover w-full xl:max-h-52 sm:max-h-48;
     max-width: unset;
   }
 
-  &__badge{
+  &__badge {
     @apply absolute top-2 right-2 bg-blue-100 p-2
   }
 

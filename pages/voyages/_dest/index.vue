@@ -7,7 +7,7 @@
       <div class="cards__grid cards__grid_withsidebar">
         <PreviewCard v-for="tour in town.tours" :key="tour.id" :town-slug="town.slug" :data="tour">
           <template #card-info>
-            <div class="card__badge card__badge_left">{{tour.daysCount}} jours</div>
+            <div class="card__badge card__badge_left">{{ tour.daysCount }} jours</div>
           </template>
         </PreviewCard>
       </div>
@@ -24,8 +24,9 @@ import {mapGetters} from 'vuex'
 import {getStrapiMedia} from '~/utils/medias'
 import loading from '~/components/svg-icons/loading'
 import PreviewCard from '~/components/ui/PreviewCard'
+
 export default {
-  name: "VoyagesEndpoints",
+  name: 'VoyagesEndpoints',
   components: {
     loading,
     PreviewCard
@@ -34,22 +35,22 @@ export default {
   data() {
     return {
       town: null,
-      tours: null
     }
   },
-  async fetch(){
-    await this.$store.dispatch('setLoading', true)
+  async fetch() {
     try {
+      this.$store.commit('setLoading', true)
+
       const data = await this.$strapi.find('towns', {slug: this.$route.params.dest})
       this.town = data[0]
+      // console.log(data[0])
+
       const sidebar = {...data[0], page: 'voyages'}
-      console.log(data[0])
       this.$store.commit('sidebar/setSidebar', sidebar)
-      this.tours = await this.$strapi.$tours.find(item => this.item.towns.find(town => town.slug === this.$route.params.dest))
-    }catch (e) {
+    } catch (e) {
       console.log(e)
-    }finally {
-      await this.$store.dispatch('setLoading', false)
+    } finally {
+      this.$store.commit('setLoading', false)
     }
   },
   computed: {

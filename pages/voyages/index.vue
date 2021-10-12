@@ -63,13 +63,13 @@ export default {
   },
   async fetch() {
     try {
-      await this.$store.dispatch('setLoading', true)
-      this.towns = await this.$strapi.$towns.find({_sort: 'order'})
+      this.$store.commit('setLoading', true)
+
+      this.towns = await this.$strapi.find('towns',{_sort: 'order'})
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.log(e)
     } finally {
-      await this.$store.dispatch('setLoading', false)
+     this.$store.commit('setLoading', false)
     }
   },
   computed: {
