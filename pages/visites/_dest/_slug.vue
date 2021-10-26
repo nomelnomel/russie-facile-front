@@ -87,6 +87,18 @@ export default {
       this.$store.commit('setLoading', false)
     }
   },
+  head() {
+    return{
+      title: this.metaTitle || 'Russie Facile',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.metaDescription
+        }
+      ],
+    }
+  },
   computed: {
     ...mapGetters(['loading']),
     getTransport() {

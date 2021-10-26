@@ -97,14 +97,20 @@ export default {
   data() {
     return {
       tour: null,
+      metaTitle: '',
+      metaDescription: ''
     }
   },
   async fetch() {
     try {
       this.$store.commit('setLoading', true)
 
-      const data = await (this.$strapi.find('tours', {slug: this.$route.params.slug}))
+      const data = await this.$strapi.find('tours', {slug: this.$route.params.slug})
       this.tour = data[0]
+
+      const { seo } = data[0]
+      this.metaTitle = seo.title
+      this.metaDescription = seo.description
 
       const sidebar = {
         page: 'program',
@@ -117,6 +123,18 @@ export default {
       console.log(e)
     } finally {
       this.$store.commit('setLoading', false)
+    }
+  },
+  head() {
+    return{
+      title: this.metaTitle || 'Russie Facile',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.metaDescription || 'Russie Facile - description'
+        }
+      ],
     }
   },
   computed: {

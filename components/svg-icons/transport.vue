@@ -1,6 +1,6 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-5 w-5 svg-icon icon-transport">
-    <path fill="#31aabb" fill-rule="evenodd" d="M20 3a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm-2.83 0a3.001 3.001 0 1 1 0 2H17C10.373 5 5 10.373 5 17v.17a3.001 3.001 0 1 1-2 0V17C3 9.268 9.268 3 17 3h.17ZM4 19a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z" clip-rule="evenodd"/>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 svg-icon icon-transport" viewBox="0 0 24 24" stroke="#31aabb" >
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
   </svg>
 </template>
 

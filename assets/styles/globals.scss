@@ -38,6 +38,35 @@ h3{
   width: 24px;
 }
 
+.btn{
+  @apply bg-accent py-2 px-4 rounded-sm text-white font-bold mt-2;
+  transition: all 150ms ease-in-out;
+
+  &:hover {
+    box-shadow: 0 0 4px 4px #31aabb;
+    outline: 0;
+  }
+
+
+  &__big{
+    @apply lg:py-4 lg:px-8 lg:text-xl;
+  }
+
+  &__likeLink{
+    @apply underline bg-transparent p-0 text-black font-bold;
+    &:hover{
+      box-shadow: none;
+    }
+
+    @screen lg{
+      @apply no-underline bg-accent py-2 px-4 rounded-sm text-white font-bold mt-2;
+      &:hover{
+        box-shadow: 0 0 4px 4px #31aabb;
+      }
+    }
+  }
+}
+
 .cta{
   @apply p-2 mt-4 text-white font-bold;
   background-color: #31aabb;

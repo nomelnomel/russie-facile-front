@@ -9,7 +9,7 @@
     </div>
     <div class="card__bottom">
       <h3>{{ data.title }}</h3>
-      <button class="cta">EN SAVOIR PLUS</button>
+      <button class="btn">EN SAVOIR PLUS</button>
     </div>
   </nuxt-link>
 </template>

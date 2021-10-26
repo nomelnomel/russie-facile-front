@@ -5,14 +5,14 @@ export default {
     port: 5000
   },
   head: {
-    title: 'front',
+    title: 'Russie Facile',
     htmlAttrs: {
       lang: 'en'
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: 'Russie Facile - Description' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [

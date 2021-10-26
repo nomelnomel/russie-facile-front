@@ -27,7 +27,7 @@
           <a href="mailto:nomelnomel@gmail.com" target="_blank">Envoyer un mail</a>
         </div>
       </div>
-      <div class="flex-col gap-4 hidden mb-2 lg:flex border-t mt-4 pt-4 w-full">
+      <div class="pourquoi">
         <p class="font-bold text-xl">Réservez en tranquillité:</p>
         <div class="flex items-center gap-2">
           <check/>
@@ -39,7 +39,7 @@
           <check/>
           <span>Voyage 100% personnalisable</span></div>
       </div>
-      <div class="flex justify-center gap-2 lg:border-t lg:mt-4 lg:pt-4 lg:w-full">
+      <div class="commander">
         <button class="bg-bg-accent py-2 px-4 rounded-sm text-white font-bold lg:py-4 lg:px-8 lg:text-xl"
                 @click="isPopup = true">Commander
         </button>
@@ -68,7 +68,7 @@
         </div>
         <span class="text-xs hidden lg:block">par persone</span>
         <button v-scroll-to="{el: '#prices', offset: -200}"
-                class="scroll-to-btn"
+                class="btn btn__likeLink"
         >
           Voir les tarifs
         </button>
@@ -84,7 +84,7 @@
           <a href="mailto:nomelnomel@gmail.com" target="_blank">Envoyer un mail</a>
         </div>
       </div>
-      <div class="flex-col gap-4 hidden mb-2 lg:flex border-t mt-4 pt-4 w-full">
+      <div class="pourquoi">
         <p class="font-bold text-xl">Pourquoi réserver ici ?</p>
         <div class="flex items-center gap-2">
           <check/>
@@ -96,8 +96,8 @@
           <check/>
           <span>Prix justes</span></div>
       </div>
-      <div class="flex justify-center gap-2 lg:border-t lg:mt-4 lg:pt-4 lg:w-full">
-        <button class="bg-accent py-2 px-4 rounded-sm text-white font-bold lg:py-4 lg:px-8 lg:text-xl"
+      <div class="commander">
+        <button class="btn btn__big"
                 @click="isPopup = true">Commander
         </button>
       </div>
@@ -120,7 +120,7 @@ export default {
     RequestPopup,
     check,
     phone,
-    mail
+    mail,
   },
   data() {
     return {
@@ -173,14 +173,19 @@ export default {
         @apply flex flex-col gap-4 w-full mt-4;
       }
     }
-  }
 
-  .scroll-to-btn {
-    @apply underline;
+    .pourquoi{
+      @apply flex-col gap-4 hidden mb-2 border-t mt-4 pt-4 w-full lg:flex
+    }
 
-    @screen lg {
-      @apply bg-accent py-2 px-4 rounded-sm text-white font-bold mt-2 no-underline;
+    .commander{
+      @apply flex justify-center gap-2;
+
+      @screen lg{
+        @apply border-t mt-4 pt-4 w-full
+      }
     }
   }
+
 }
 </style>
