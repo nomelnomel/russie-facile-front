@@ -1,6 +1,6 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
-  target: 'static',
+  target: 'server',
   server: {
     port: 5000
   },
@@ -62,7 +62,8 @@ export default {
     // { from: '/blog', to: '/blog/page/1' }
   ],
   strapi: {
-    url: process.env.API_URL || "http://localhost:1337",
+    // url: process.env.API_URL || "http://localhost:1337",
+    url: "http://49.12.236.212:1337/",
     entities: [
       'towns',
       'tours',
